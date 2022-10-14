@@ -6,7 +6,7 @@ import tqdm
 # checking if GPU is available or not
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-class CNN_Layout1(nn.Model):
+class CNN_Layout1(nn.Module):
     def __init__(self) -> None:
         super(CNN_Layout1, self).__init__()
         self.model = nn.Sequential(
@@ -97,3 +97,4 @@ def get_dataset(folder='./data'):
     train_ds = datasets.CIFAR10(folder, train=True, download=True)
     valid_ds = datasets.CIFAR10(folder, train=False)
 
+get_dataset()
