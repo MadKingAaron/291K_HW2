@@ -1,7 +1,7 @@
 import torch
-from torch import max_pool2d, nn, relu
-from torchvision import datasets
-import tqdm
+from torch import max_pool2d, nn, relu, optim
+from torchvision import datasets, transforms
+from tqdm import tqdm
 
 # checking if GPU is available or not
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -93,8 +93,29 @@ def train_for_nepoch(nepoch, model, trainloader, criterion, optimizer):
     for epoch in range(nepoch):
         train(epoch, model, trainloader, criterion, optimizer)
 
+def predict(model,testloader):
+
+    model.eval()
+    preds = []
+    with torch.no_grad():
+        # labels are not available for the actual test set
+        for feature in tqdm(testloader):
+            # calculate outputs by running images through the network
+            outputs = model(feature.to(device))
+            _, predicted = torch.max(outputs.data, 1)
+            preds.extend(predicted.tolist())
+
+    return preds
+
 def get_dataset(folder='./data'):
     train_ds = datasets.CIFAR10(folder, train=True, download=True)
     valid_ds = datasets.CIFAR10(folder, train=False)
+
+def test_training_and_val():
+
+modelArch_list = [CNN_Layout1]
+optimizer_list = [optim.SGD, optim.Adam]
+loss_list = [nn.CrossEntropyLoss]
+
 
 get_dataset()
