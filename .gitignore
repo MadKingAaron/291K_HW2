@@ -147,3 +147,4 @@ working_data/cifar-10-batches-py/data_batch_3
 working_data/cifar-10-batches-py/data_batch_1
 working_data/cifar-10-batches-py/batches.meta
 working_data/cifar-10-python.tar.gz
+tester.py
